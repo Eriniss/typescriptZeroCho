@@ -49,4 +49,7 @@ type User3 = {
 }
 
 type ReadonlyUser = Readonly<User3>;
-const readonlyUser: ReadonlyUser = { name: 'Jeong', age: 23};
+const readonlyUser: ReadonlyUser = { name: 'Jeong', age: 23}; // 읽기 전용이 된다. 편집 불가!
+
+
+// ** Pcik **
