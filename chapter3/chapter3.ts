@@ -1,6 +1,6 @@
 // chapter3 lib.es5.d.ts 분석하기
 
-// 타입이 모여있는 lib.es5.d.ts 파일 분석
+// 3.1
 
 // ** Partial **
 // 기존 객체의 속성을 모두 옵셔널로 만드는 함수
@@ -106,4 +106,20 @@ const defaultWebConfig: DefualtConfig = {
   API_URL: 'https://123.45.67.89', // string | boolean 할당
   DEBUG_MODE: false, // string | boolean 할당
   LOG_LEVEL: 'info', // string | boolean 할당
+}
+
+
+// 3.2
+
+// **Exclude**
+type MyExclude<T, U> = T extends U ? never : T;
+type Result5 = MyExclude<1 | '2' | 3, string>;
+
+// 첫번째 인자에 포함된 값을 제외한 새로운 타입 생성
+type Info = 'name' | 'address' | 'phoneNumber';
+type ExcludedInfo = Exclude<'address', Info>;
+
+const myIntro: ExcludedInfo = {
+  name: 'Jeong',
+  phoneNumber: 1234
 }
