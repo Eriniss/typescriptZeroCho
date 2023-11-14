@@ -21,8 +21,6 @@ type User1 = {
 type PartialUser1 = Partial<User1>; // Partial을 사용하여 필수값을 옵셔널 타입으로 설정
 const partialUser1: PartialUser1 = {}; // 값이 비어있어도 필수값이 아니기 때문에 생략 가능
 
-// ======================================
-
 // ** Required **
 // 모든 속성이 옵셔널이 아닌 값을 가진다.
 type MyRequired<T> = {
@@ -42,8 +40,6 @@ type User2 = {
 type RequiredUser = Required<User2>;
 const requiredUser: RequiredUser = { name: 'Hellow', age: 26 }; // 값이 필수값으로 지정되었기 때문에 name과 age는 필수로 입력
 
-// ======================================
-
 // ** Readonly **
 // 타입의 모든 속성 값을 읽기 전용으로 만든다.
 // 반대로, -Readonly시 읽기 전용이 아니게 된다.
@@ -54,8 +50,6 @@ type User3 = {
 
 type ReadonlyUser = Readonly<User3>;
 const readonlyUser: ReadonlyUser = { name: 'Jeong', age: 23 }; // 읽기 전용이 된다. 편집 불가!
-
-// ======================================
 
 // ** Pcik **
 // 기존 유형에서 특정 속성(키)를 선택하여 새 유형을 생성
@@ -81,8 +75,6 @@ const user4: CustomizedUser4Form = {
   name: 'Jeong',
   age: 27,
 };
-
-// ======================================
 
 // ** Record **
 // 모든 속성을 동일하게 설정
@@ -113,15 +105,3 @@ const defaultWebConfig: DefualtConfig = {
   DEBUG_MODE: false, // string | boolean 할당
   LOG_LEVEL: 'info', // string | boolean 할당
 };
-
-// 3.2
-
-// **Exclude**
-type MyExclude<T, U> = T extends U ? never : T;
-type Result5 = MyExclude<1 | '2' | 3, string>;
-
-// 두번째 인자에 포함된 값을 제외한 새로운 타입 생성
-type Info = 'name' | 'address' | 'phoneNumber';
-type ExcludedInfo = Exclude<Info, 'address'>;
-
-const user5: ExcludedInfo = 'name';
