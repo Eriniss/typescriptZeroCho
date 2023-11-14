@@ -86,6 +86,7 @@ const user4: CustomizedUser4Form = {
 
 // ** Record **
 // 모든 속성을 동일하게 설정
+// Record는 딕셔너리 형태의 타입을 선언할때 사용
 type MyRecord<K extends keyof any, T> = {
   [P in K]: K;
 };
@@ -119,6 +120,8 @@ const defaultWebConfig: DefualtConfig = {
 type MyExclude<T, U> = T extends U ? never : T;
 type Result5 = MyExclude<1 | '2' | 3, string>;
 
-// 첫번째 인자에 포함된 값을 제외한 새로운 타입 생성
+// 두번째 인자에 포함된 값을 제외한 새로운 타입 생성
 type Info = 'name' | 'address' | 'phoneNumber';
-type ExcludedInfo = Exclude<'address', Info>;
+type ExcludedInfo = Exclude<Info, 'address'>;
+
+const user5: ExcludedInfo = 'name';

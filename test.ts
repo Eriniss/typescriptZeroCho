@@ -1,10 +1,6 @@
-type Foo = {
-  x: number;
-  y: number;
-}
+import { Foo, Bar } from './type_module';
 
-const foo = ({x, y}: Foo):number => {
-  return x + y;
-}
+type MyPick = Pick<Foo, 'a' | 'b'>;
 
-console.log(foo({ x: 3, y: 7 }));
+const myPick: MyPick = { a: 123, b: 313 };
+console.log(myPick);
