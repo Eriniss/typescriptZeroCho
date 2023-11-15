@@ -14,6 +14,7 @@ const user5: ExcludedInfo = 'name';
 
 // ** Extract **
 // 말 그대로 상위 타입에서 '추출'
+// Pick이 딕셔너리 형태의 타입이라면 이것은 일반 형태의 타입이라고 생각하면 편함
 type MyExtract<T, U> = T extends U ? T : never;
 type Result6 = MyExtract<1 | '2' | 3, string>;
 
