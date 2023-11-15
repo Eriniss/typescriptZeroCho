@@ -28,6 +28,6 @@ myArray.myForEach((a, b, c) => console.log(a, b, c));
 
 const myArr: string[] = ['Kim', 'Jeong'];
 
-myArr.forEach((value: string, index: number, array: string[]) =>
-  console.log(`${value}는 ${array}의 ${index}번 째 인덱스 입니다.`)
+myArr.forEach((value: string, index: number, array: string[]): void =>
+  console.log(`${value}는 ${array}의 [${index}]번 째 인덱스 입니다.`)
 );
