@@ -1,3 +1,5 @@
-type MyArr<T> = Array<T>;
+const arr: number[] = [1, 3, 2, 4];
 
-const arr: MyArr<number | boolean | string> = [1, true, 'hi!'];
+const myMapp: string[] = arr.map(
+  (value: number, index: number, array: number[]) => `${value}`
+);
