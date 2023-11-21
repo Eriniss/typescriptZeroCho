@@ -6,11 +6,12 @@
 // 아래는 예시 코드이다.
 // 먼저 함수를 실행하기 전 console.log('Async function started'); 을 실행한다.
 // 이후 getNumberAsaync와 getStringAsync는 '콜 스택'이라 불리는 JS 엔진의 임시 저장소에 보관된다.
-// 1000ms(1s)가 지난 후 getNumberAsync가 콜 스택으로부터 호출되어 console.log('Number Result:', numberResult);가 출력된다.
+// 1000ms가 지난 후 getNumberAsync가 콜 스택으로부터 호출되어 console.log('Number Result:', numberResult);가 출력된다.
 // getNumberAsyn가 호출된 후 콜 스택에 대기하고 있던 getStringAsync가 2000ms 이후에 콜 스택에서 호출되어 console.log('String Result:', stringResult); 가 출력된다.
 // 마지막으로 console.log('Async function completed');가 출력된다.
 
 // 숫자를 비동기적으로 반환하는 async 함수
+// 이 비동기 함수는 42를 resolve 하므로 Promise<number>을 반환한다.
 async function getNumberAsync(): Promise<number> {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -20,6 +21,7 @@ async function getNumberAsync(): Promise<number> {
 }
 
 // 문자열을 비동기적으로 반환하는 async 함수
+// 이 비동기 함수는 'Hello, world!'를 resolve 하므로 Promise<string>을 반환한다.
 async function getStringAsync(): Promise<string> {
   return new Promise((resolve) => {
     setTimeout(() => {
