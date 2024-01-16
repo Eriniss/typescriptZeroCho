@@ -93,3 +93,29 @@ export const ReactType = () => {
   const address = useRef();
 };
 ```
+
+이중 MutableRefObject와 RefObject의 차이를 파악하는게 중요해 보인다.
+
+```ts
+// index.d.ts의 936줄
+interface MutableRefObject<T> {
+  current: T;
+}
+
+// index.d.ts의 61줄
+interface RefObject<T> {
+  readonly current: T | null;
+}
+```
+
+useRef는 useState와 다르게 값을 변경 시 리렌더링이 일어나지 않는다.
+하지만, 이 의미는 값 자체를 변경할 수 없다는 의미는 아니다. 즉, 값을 변경할 때의 오버로딩을 가지며 값을 변경하지 않을때의 오버로딩도 가진다.
+current는 readonly의 값도 가지므로 좀 더 유연한 타입을 가진다.
+
+```ts
+const inputEl = useRef();
+
+<input
+  ref={inputEl} // null값을 인수로 제공하지 않으면 에러가 발생한다
+/>;
+```
