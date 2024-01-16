@@ -61,7 +61,7 @@ type setStateAction<S> = S | ((prevState: S) => S);
 type Dispatch<A> = (value: A) => void;
 
 // 위 두개를 조합하면 다음과 같은 타입이 생성된다.
-// (value: string | ((prevState: string) => string) => void)
+(value: string | ((prevState: string) => string) => void)
 
 // 종합하면 첫 번쨰 오버로딩인 setStateAction은 함수를 받아들이는 경우로
 // 이전 state값을 받아 새로운 상태로 업데이트 하며 Dispatch는 이 함수를 사용하여 상태를 업데이트 하는 역할을 한다.
@@ -75,12 +75,13 @@ type Dispatch<A> = (value: A) => void;
 // useRef의 오버로딩은 총 3개로 구성되어 있다.
 // 다음은 index.d.ts에 정의된 useRef의 타입이다.
 
-// function useRef<T>(initialValue: T): MutableRefObject<T>;
-// function useRef<T>(initialValue: T | null): RefObject<T>;
-// function useRef<T = undefined>(): MutableRefObject<T | undefined>;
+function useRef<T>(initialValue: T): MutableRefObject<T>;
+function useRef<T>(initialValue: T | null): RefObject<T>;
+function useRef<T = undefined>(): MutableRefObject<T | undefined>;
 
 export const ReactType = () => {
   const [value, setValue] = useState<string>(); // 원시 값을 직접 상태 업데이트 하므로 두 번쨰 오버로딩 사용
   const [name, setName] = useState<string>('jhs'); // 초기 문자열 jhs가 지정되어 있으므로 useState의 첫 번째 오버로딩 사용
   const address = useRef();
 };
+
