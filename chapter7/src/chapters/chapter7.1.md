@@ -80,7 +80,7 @@ value의 타입 S가 기본값인 undefined로 되어 있을 경우 제너릭 �
 ### 7.1.2 useRef
 
 useRef의 오버로딩은 총 3개로 구성되어 있다.
-다음은 index.d.ts에 정의된 useRef의 타입이다.
+다음은 index.d.ts에 정의된 useRef의 타입과 예시코드이다.
 
 ```ts
 function useRef<T>(initialValue: T): MutableRefObject<T>;
@@ -109,7 +109,7 @@ interface RefObject<T> {
 ```
 
 useRef는 useState와 다르게 값을 변경 시 리렌더링이 일어나지 않는다.
-하지만, 이 의미는 값 자체를 변경할 수 없다는 의미는 아니다. 즉, 값을 변경할 때의 오버로딩을 가지며 값을 변경하지 않을때의 오버로딩도 가진다.
+하지만, 이 의미는 값 자체를 변경할 수 없다는 의미는 아니다. 즉, 값을 변경할 때의 오버로딩(current)을 가지며 값을 변경하지 않을때(readonly)의 오버로딩도 가진다.
 current는 readonly의 값도 가지므로 좀 더 유연한 타입을 가진다.
 
 ```ts
@@ -119,3 +119,16 @@ const inputEl = useRef();
   ref={inputEl} // null값을 인수로 제공하지 않으면 에러가 발생한다
 />;
 ```
+
+만약 위처럼 inputEl의 default값에 null값을 넣지 않으면 위의 MutableRefObject와 RefObject 타입에서 에러가 발생한다.
+초기 인수를 지정하지 않으면 자동으로 undefined가 할당된다. 즉, 3번쨰 오버로딩인 function useRef<T = undefined>(): MutableRefObject<T | undefined>; 가 타입으로 지정된다.
+
+쉽게 재설명 하자면 다음과 같다.
+
+- 첫 번째 오버로딩: MutableRefObject<T>를 반환하며, 초기값으로 어떤 값이든 허용합니다.
+- 두 번째 오버로딩: RefObject<T>를 반환하며, 초기값으로 T 또는 null을 허용합니다.
+- 세 번째 오버로딩: MutableRefObject<T | undefined>를 반환하며, 초기값이 주어지지 않으면 undefined로 추론됩니다.
+
+위의 타입들은 '좀 더 유연한 타입'의 순서대로 되어있다. 즉, 첫번째 오버로딩은 두번째 오버로딩의 필요조건이고, 두번째 오버로딩은 세번째 오버로딩의 필요조건이다.
+
+### 7.1.3 useEffet
