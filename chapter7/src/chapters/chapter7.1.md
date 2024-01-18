@@ -132,3 +132,37 @@ const inputEl = useRef();
 위의 타입들은 '좀 더 유연한 타입'의 순서대로 되어있다. 즉, 첫번째 오버로딩은 두번째 오버로딩의 필요조건이고, 두번째 오버로딩은 세번째 오버로딩의 필요조건이다.
 
 ### 7.1.3 useEffet
+
+먼저 useEffect의 index.d.ts의 1117줄에 정의되어있는 useEffect의 기본 타입에 대해 알아보자.
+
+```ts
+function useEffect(effect: EffectCallback, deps?: DependencyList): void;
+```
+
+위의 타입에서 두번째 인자 deps는 옵셔널로 설정하였다. 실제로 useEffect의 두번째 매개변수를 사용하지 않는 useEffect 용법이 있다.
+이제 EffectCallback의 타입을 Go to Definition 해보자.
+
+```ts
+type EffectCallback = () => void | Destructor;
+```
+
+위의 타입에서 void 혹은 Destructor를 반환하는 함수인것을 확인할 수 있다.
+한번 더 Destructor를 Go to Definition 해보자.
+
+```ts
+type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };
+```
+
+void 또는 [UNDEFINED_VOID_ONLY]: never를 반환하게 강제로 타입이 지정되어 있다.
+여기서 UNDEFINED_VOID_ONLY는 symbol값이다.
+type Destructor = () => void | { [UNDEFINED_VOID_ONLY]: never };가 아닌 type Destructor = () => void | undefined;를 사용 할 경우 발생하는 예기치못한 에러 케이스는 아래와 같다.
+
+```ts
+useEffect(() => {
+  return undefined; // Error가 발생하지 않는다.
+}, [dependencies]);
+```
+
+위의 케이스에서 type Destructor = () => void | undefined;로 타입을 지정하게 되면 에러가 발생하지 않는다.
+하지만, useEffect는 최종적으로 undefined를 반환하게 된다. 무조건적으로 void를 반환해야 하는 useEffect에 예기치 않은 에러가 발생했다!
+이러한 에러 케이스를 막고자 'UNDEFINED_VOID_ONLY' 라는 새로운 symbol값을 도입하여 type에 지정하였다. undefined가 리턴될 경우 이를 void로 강제적으로 바꿔준다.
