@@ -165,4 +165,4 @@ useEffect(() => {
 
 위의 케이스에서 type Destructor = () => void | undefined;로 타입을 지정하게 되면 에러가 발생하지 않는다.
 하지만, useEffect는 최종적으로 undefined를 반환하게 된다. 무조건적으로 void를 반환해야 하는 useEffect에 예기치 않은 에러가 발생했다!
-이러한 에러 케이스를 막고자 'UNDEFINED_VOID_ONLY' 라는 새로운 symbol값을 도입하여 type에 지정하였다. undefined가 리턴될 경우 이를 void로 강제적으로 바꿔준다.
+이러한 에러 케이스를 막고자 'UNDEFINED_VOID_ONLY' 라는 새로운 symbol값을 도입하여 type에 지정하였다. undefined가 리턴될 경우 이를 void로 강제적으로 바꿔준다.Y
