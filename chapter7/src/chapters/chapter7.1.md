@@ -179,3 +179,6 @@ DependencyList를 Go define 하게 되면 아래와 같다.
 ```ts
 type DependencyList = readonly unknown[];
 ```
+
+useMemo, useCallback 모두 두번째 인자를 사용하지 않아도 되지만 대부분의 경우 실수인 경우가 많다.
+타입 제작자는 이를 방지하기 위해 제작자는 두번째 매개변수를 옵셔널로 설정하지 않고 무조건 넣도록 만들었다
